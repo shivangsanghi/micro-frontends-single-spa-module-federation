@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import singleSpaReact from 'single-spa-react'
+import { ExtendedHeader } from './ExtendedHeader'
 
 const Header: React.VFC = () => {
   return (
@@ -13,7 +14,8 @@ const Header: React.VFC = () => {
         fontWeight: 'bold',
       }}
     >
-      Header from React
+      Header from React &nbsp;
+      <ExtendedHeader />
     </header>
   )
 }
