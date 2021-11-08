@@ -8,13 +8,6 @@ registerApplication(
 )
 
 registerApplication(
-  'footer',
-  // @ts-ignore
-  () => import('home-nav/Footer'),
-  (location) => location.pathname.startsWith('/'),
-)
-
-registerApplication(
   'body',
   // @ts-ignore
   () => import('home-body/Body'),

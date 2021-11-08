@@ -1,6 +1,7 @@
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const path = require('path')
 const outputPath = path.resolve(__dirname, 'dist')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   entry: './src/index',
@@ -14,11 +15,11 @@ module.exports = {
   },
 
   output: {
-    publicPath: 'http://localhost:3001/',
+    publicPath: 'http://localhost:3002/',
   },
 
   resolve: {
-    extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
+    extensions: ['.jsx', '.js', '.json', '.ts', '.tsx', '.vue'],
   },
 
   devServer: {
@@ -28,29 +29,45 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'vue-style-loader',
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+      },
+      {
         test: /\.tsx?$/,
-        loader: require.resolve('babel-loader'),
+        loader: 'ts-loader',
         options: {
-          presets: [
-            require.resolve('@babel/preset-react'),
-            require.resolve('@babel/preset-typescript'),
-          ],
+          appendTsSuffixTo: [/\.vue$/],
         },
+        exclude: /node_modules/,
       },
     ],
   },
 
   plugins: [
+    new VueLoaderPlugin(),
     new ModuleFederationPlugin({
       name: 'navigation',
       library: { type: 'var', name: 'navigation' },
       filename: 'remoteEntry.js',
       remotes: {},
       exposes: {
-        Header: './src/Header',
-        Footer: './src/Footer',
+        Header: './src/app',
       },
-      shared: ['react', 'react-dom', 'single-spa-react'],
+      shared: ['vue', 'single-spa', 'single-spa-vue'],
     }),
   ],
 }

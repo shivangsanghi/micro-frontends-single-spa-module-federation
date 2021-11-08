@@ -1,13 +1,14 @@
+@@ -1,26 +0,0 @@
 <template>
-  <div class="body">
+  <div class="header">
     <div class="inner">
-      Body from Vue.js
+      Header
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-  .body {
+  .header {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -15,12 +16,13 @@
   }
 
   .inner {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    background: #42b983;
-    color: #ffffff;
+    background: orange;
+    color: black;
+    padding-left: 1em;
   }
 </style>

@@ -1,28 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import singleSpaReact from 'single-spa-react'
+import { Parent } from './Parent'
 
-const Footer: React.VFC = () => {
+const Body: React.VFC = () => {
   return (
-    <footer
+    <div
       style={{
         width: '100%',
-        background: '#20232a',
-        color: '#61dafb',
-        padding: '2rem',
-        minHeight: '100px',
-        fontWeight: 'bold',
+        padding: '1rem',
       }}
     >
-      Footer from React
-    </footer>
+      <Parent />
+    </div>
   )
 }
 
 const lifecycles = singleSpaReact({
   React,
   ReactDOM,
-  rootComponent: Footer,
+  rootComponent: Body,
 })
 
 export const bootstrap = lifecycles.bootstrap
