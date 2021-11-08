@@ -4,6 +4,12 @@ import { Child } from './Child'
 export const Parent = () => {
   const [value, setValue] = React.useState(1)
   const [multiplier, setMultiplier] = React.useState(2)
+
+  const reset = React.useCallback(() => {
+    setValue(1)
+    setMultiplier(2)
+  }, [])
+
   return (
     <div>
       <label htmlFor="number">Set Number</label>
@@ -27,7 +33,7 @@ export const Parent = () => {
       <br />
       <br />
       <br />
-      <Child multiplier={multiplier} value={value} />
+      <Child multiplier={multiplier} value={value} reset={reset} />
     </div>
   )
 }
