@@ -49,7 +49,13 @@ module.exports = {
       exposes: {
         Body: './src/Body',
       },
-      shared: ['react', 'react-dom', 'single-spa-react'],
+      shared: [
+        'react',
+        'react-dom',
+        'single-spa-react',
+        'react-redux',
+        '@reduxjs/toolkit',
+      ],
     }),
   ],
 }

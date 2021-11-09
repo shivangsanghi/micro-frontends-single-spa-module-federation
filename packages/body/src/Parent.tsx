@@ -1,13 +1,30 @@
 import * as React from 'react'
+import { useDispatch } from 'react-redux'
 import { Child } from './Child'
+import { multiply } from './redux/reducer'
 
 export const Parent = () => {
   const [value, setValue] = React.useState(1)
   const [multiplier, setMultiplier] = React.useState(2)
-
+  const dispatch = useDispatch()
   const reset = React.useCallback(() => {
     setValue(1)
     setMultiplier(2)
+    dispatch(multiply(value * multiplier))
+  }, [dispatch, multiplier, value])
+
+  const onNumberChange = (val: number) => {
+    setValue(val)
+    dispatch(multiply(val * multiplier))
+  }
+
+  const onMultiplierChange = (val: number) => {
+    setMultiplier(val)
+    dispatch(multiply(val * value))
+  }
+
+  React.useEffect(() => {
+    dispatch(multiply(value * multiplier))
   }, [])
 
   return (
@@ -18,7 +35,7 @@ export const Parent = () => {
         id="number"
         type="number"
         value={value}
-        onChange={(e) => setValue(+e.target.value)}
+        onChange={(e) => onNumberChange(+e.target.value)}
       />
       <br />
       <br />
@@ -28,12 +45,12 @@ export const Parent = () => {
         id="multiplier"
         type="number"
         value={multiplier}
-        onChange={(e) => setMultiplier(+e.target.value)}
+        onChange={(e) => onMultiplierChange(+e.target.value)}
       />
       <br />
       <br />
       <br />
-      <Child multiplier={multiplier} value={value} reset={reset} />
+      <Child reset={reset} />
     </div>
   )
 }
